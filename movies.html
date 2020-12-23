@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>UAS Kelompok Python</title>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/lightslider.css"/>
+        <script src="js/JQuery3.3.1.js"></script>
+        <script src="js/lightslider.js"></script>
+        <link rel="shortcut icon" href="images/fav%20icon.png"/>
+        <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js" integrity="sha512-5zOAub3cIpqklnKmM05spv4xttemFDlbBrmRexWiP0aWV8dlayEGciapAjBQWA7lgQsxPY6ay0oIUVtY/pivXA==" crossorigin="anonymous"></script>
+        <style>
+            body{
+                font-family:poppins;
+		    }
+	</style>
+    </head>
+    <body ng-app="myApp">
+        <div  ng-controller="myCtrl">
+            <nav>
+                <a href="#" class="logo" style="margin-top: 3px;">
+                    <img src="images/logo.png"/>
+                </a>
+                <input type="checkbox" class="menu-btn" id="menu-btn"/>
+                <label class="menu-icon" for="menu-btn">
+                    <span class="nav-icon"></span>
+                </label>
+                <ul class="menu">
+                    <li><a href="index.html" ng-click="Hide()">Home</a></li>
+                    <li><a href="movies.html" ng-click="Hide()">Movies</a></li>
+                    <li><a href="aboutus.html" ng-click="Hide()">About Us</a></li>
+                </ul>
+                <div style="margin-top: 0px; margin-bottom: 2px;">
+                   <form ng-submit="search()">
+                       <div class="search">
+                            <input type="text" placeholder="Find Your Favourite Movies" ng-model="uid"/>
+                            <!--search-icon----------->
+                            <button class="fas fa-search" id="submit" value="Submit" ng-click="Show()" style="height: 40px; width: 40px; font-size: 20px; text-decoration: none; background-color: transparent; border: none;"></button>
+                       </div>
+                   </form>
+                </div>
+            </nav>
+            
+
+            <div ng-show = "IsVisible">
+            <div class="movies-heading" style="color: white; margin-top: 100px;">
+                <h2>Search Result</h2>
+            </div>
+            <div class="container">
+                <div class="container" style="border-bottom: solid black 5px">
+            <section id="movies-list">
+                  <div ng-repeat="userx in [].constructor(18) track by $index">
+
+                    <div class="movies-box">
+
+                        <div class="movies-img">
+                            <div class="quality">{{srcRes.results[$index].vote_average}}</div>
+                            <img src="http://image.tmdb.org/t/p/w500/{{srcRes.results[$index].poster_path}}">
+                        </div>
+
+                        <a href="">
+                            <h2>{{srcRes.results[$index].title}}</h2>
+                        </a>
+                    </div>
+                  </div>
+            </section> 
+            </div>
+            </div>    
+            </div>   
+            
+            <div ng-hide = "IsVisible">
+            <div class="container" style="margin-top: 100px;">
+        
+            <h2 style="color: white;"class="movies-heading">Movies</h2>                
+            <select name="SortByPopularity" ng-model="val" ng-change="sorting()" style="width: 96%;font-size: 120%; border-radius: 5px;">
+                <option value="popularity.desc">Sort By Popularity Descending</option>
+                <option value="popularity.asc">Sort By Popularity Ascending</option>
+                <option value="revenue.desc" selected>Sort By Revenue Descending</option>
+                <option value="revenue.asc">Sort By Revenue Descending</option>
+                <option value="vote_count.desc">Sort By Vote Count Descending</option>
+                <option value="vote_count.asc">Sort By Vote Count Ascending</option>
+            </select>
+             </div>   
+            
+            <div class="container">
+            <section id="movies-list">
+                  <div ng-repeat="userx in [].constructor(16) track by $index">
+                    <div class="movies-box">
+                        <div class="movies-img">
+                            <div class="quality"><i class="fa fa-star blue-color" ></i>  <span style="color: white;">            {{res.results[$index].vote_average}}</div>
+                            <img src="http://image.tmdb.org/t/p/w500/{{res.results[$index].poster_path}}">
+                        </div>
+                        <a href="">
+                            <h2>{{res.results[$index].title}} ({{res.results[$index].release_date[0]}}{{res.results[$index].release_date[1]}}{{res.results[$index].release_date[2]}}{{res.results[$index].release_date[3]}})</h2>
+                        </a>
+                    </div>
+                  </div>
+            </section> 
+            </div>
+            
+            <!--btns--------------->
+            <!--btns--------------->
+            <div class="btns" style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="btns">
+                    <a ng-click="pageOne()" >First Page</a>
+                    <a ng-click="prevFunc()">Previous</a>
+                    <a ng-click="nextFunc()">Next</a>
+                    <a ng-click="pageLast()">Last Page</a>
+                </div>
+            </div>
+            </div>
+            </div>
+        
+            <!--footer------------------>
+            <footer>
+                <p>UAS Pengenalan Teknologi Internet - Kelompok Python</p>
+                <p>Movie Website with TheMovieDB API using AngularJS Framework</p>
+            </footer>
+        
+        <script>
+       var app = angular.module("myApp",['ngResource']);
+         app.factory('find',function($resource){
+            return $resource('https://api.themoviedb.org/3/search/movie?api_key=93f4a4b4799575cccd7e2666d1769d15&query=:query',{query:'@query'});
+        });
+       app.factory('UserRF',function($resource){
+            return $resource('https://api.themoviedb.org/3/discover/movie?api_key=93f4a4b4799575cccd7e2666d1769d15&sort_by=:sort_by&page=:page',{sort_by:'@sort_by',page:'@page'});
+        });
+       app.controller("myCtrl", function($scope, UserRF, find, $http){
+          $scope.search = function(){ 
+               var usrQuery = $scope.uid;
+               $scope.srcRes = find.get({query:usrQuery});
+           }
+           var curr_page = 3;
+           $scope.res = UserRF.get({page:curr_page});  
+           $scope.pageOne = function(){
+               curr_page = 3;
+               $scope.res = UserRF.get({page:curr_page});
+           }
+           $scope.prevFunc = function(){
+               //console.log(curr_page);
+               if(curr_page >= 4){
+                   curr_page -= 1;
+                   $scope.res = UserRF.get({page:curr_page});
+               }
+           };
+           $scope.nextFunc = function(){
+               //console.log(curr_page);
+               if(curr_page <= 499){
+                   curr_page += 1;
+                   $scope.res = UserRF.get({page:curr_page});
+               }
+           };
+          $scope.pageLast = function(){
+               curr_page = 500;
+               $scope.res = UserRF.get({page:curr_page});
+           };
+           $scope.val = "revenue.desc";
+           var default_page="revenue.desc";
+           $scope.res = UserRF.get({sort_by:default_page,page:1});
+           $scope.sorting = function(){
+               var selected_option = $scope.val;
+                $scope.res = UserRF.get({sort_by:selected_option});
+           };
+           $scope.IsVisible = false;
+           $scope.Show = function(){
+                $scope.IsVisible = true;
+           };
+           $scope.Hide = function(){
+                $scope.IsVisible = false;
+           }
+        });
+            
+   </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

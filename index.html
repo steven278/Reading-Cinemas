@@ -1,0 +1,312 @@
+<!--doctype html-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>UAS Kelompok Python</title>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/lightslider.css"/>
+        <script src="js/JQuery3.3.1.js"></script>
+        <script src="js/lightslider.js"></script>
+        <link rel="shortcut icon" href="images/fav%20icon.png"/>
+        <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js" integrity="sha512-5zOAub3cIpqklnKmM05spv4xttemFDlbBrmRexWiP0aWV8dlayEGciapAjBQWA7lgQsxPY6ay0oIUVtY/pivXA==" crossorigin="anonymous"></script>
+        <style>
+            body{
+                font-family:poppins;
+            }
+        </style>	
+    </head>
+    
+    <body ng-app="myApp">
+        <div  ng-controller="myCtrl">
+        <nav>
+            <a href="#" class="logo">
+                <img src="images/logo.png"/>
+            </a>
+            <input type="checkbox" class="menu-btn" id="menu-btn"/>
+            <label class="menu-icon" for="menu-btn">
+                <span class="nav-icon"></span>
+            </label>
+            <ul class="menu">
+                <li><a href="index.html" ng-click="Hide()">Home</a></li>
+                <li><a href="movies.html" ng-click="Hide()">Movies</a></li>
+                <li><a href="aboutus.html" ng-click="Hide()">About Us</a></li>
+            </ul>
+            <div style="margin-top: 14px;">
+               <form ng-submit="search()">
+                   <div class="search">
+                        <input type="text" placeholder="Find Your Favourite Movies" ng-model="uid"/>
+                        <!--search-icon----------->
+                        <button class="fas fa-search" id="submit" value="Submit" ng-click="Show()" style="height: 40px; width: 40px; font-size: 20px; text-decoration: none; background-color: transparent; border: none;"></button>
+                   </div>
+               </form>
+            </div>
+        </nav>
+           
+        <div ng-show = "IsVisible">
+        <div class="movies-heading" style="color: white; margin-top: 100px;">
+            <h2>Search Result</h2>
+        </div>
+        <div class="container">
+            <div class="container" style="border-bottom: solid black 5px">
+        <section id="movies-list">
+              <div ng-repeat="userx in [].constructor(18) track by $index">
+
+                <div class="movies-box">
+
+                    <div class="movies-img">
+                        <div class="quality">{{srcRes.results[$index].vote_average}}</div>
+                        <img src="http://image.tmdb.org/t/p/w500/{{srcRes.results[$index].poster_path}}">
+                    </div>
+
+                    <a href="">
+                        <h2>{{srcRes.results[$index].title}}</h2>
+                    </a>
+                </div>
+              </div>
+        </section> 
+        </div>
+        </div>    
+        </div>   
+<!--
+            <div class="container" ng-show="isVisible">
+                <div class="container" style="border-bottom: solid black 5px">
+                <section id="movies-list">
+                      <div ng-repeat="userx in [].constructor(18) track by $index">
+                        <div class="movies-box">
+                            <div class="movies-img">
+                                <div class="quality">{{srcRes.results[$index].vote_average}}</div>
+                                <img src="http://image.tmdb.org/t/p/w500/{{srcRes.results[$index].poster_path}}">
+                            </div>
+                            <a href="">
+                                <h2>{{srcRes.results[$index].title}}</h2>
+                            </a>
+                        </div>
+                      </div>
+                </section> 
+                </div>
+            </div>
+-->
+        <div ng-hide = "IsVisible">
+        <section id="main">
+            
+            <!--showcase----------------------->
+            <!--heading------------->
+            <h1 class="showcase-heading"><strong>Showcase</strong></h1>
+        
+            <ul id="autoWidth" class="cs-hidden">
+
+            <!--box-1--------------------------->
+            <li class="item-a">
+                <!--showcase-box------------------->
+               <div class="showcase-box">
+                   <img src="images/s-1.jpg"/>
+               </div>
+                   </li>
+                <!--box-2--------------------------->
+                <li class="item-b">
+                    <!--showcase-box------------------->
+                   <div class="showcase-box">
+                       <img src="images/s-2.jpg"/>
+                   </div>
+                       </li>
+                    <!--box-3--------------------------->
+                <li class="item-c">
+                    <!--showcase-box------------------->
+                   <div class="showcase-box">
+                       <img src="images/s-3.jpg"/>
+                   </div>
+                       </li>
+                    <!--box-4--------------------------->
+                <li class="item-d">
+                    <!--showcase-box------------------->
+                   <div class="showcase-box">
+                       <img src="images/s-4.jpg"/>
+                   </div>
+                       </li>
+                       <!--box-5--------------------------->
+                <li class="item-e">
+                    <!--showcase-box------------------->
+                   <div class="showcase-box">
+                       <img src="images/s-5.png"/>
+                   </div>
+                       </li>
+              </ul>
+
+            </section>
+        
+            
+        <section id="latest">
+            <h2 class="latest-heading" style="color: white;">Upcoming Movies</h2>
+            <ul id="autoWidth2" class="cs-hidden">
+                <div ng-repeat="userx in [].constructor(18) track by $index">
+                <li class="item-{{up.results[$index].id}}">
+                    <div class="latest-box">
+                        <div class="latest-b-img">
+                            <img src="http://image.tmdb.org/t/p/w500/{{up.results[$index].poster_path}}" ng-click="callVideo(up.results[$index].overview)">
+                        </div>
+                        <div class="latest-b-text">
+                            <strong>{{up.results[$index].title}}</strong>
+                            <p>{{up.results[$index].release_date}}</p>
+                        </div>
+                    </div>
+                </li>
+                </div>
+              </ul>
+        </section>
+            
+        <!--latest-movies---------------------->
+        <section id="latest">
+            <h2 class="latest-heading" style="color: white;">Now Playing</h2>
+            <!--slider------------------->
+            <ul id="autoWidth3" class="cs-hidden">
+                <div ng-repeat="userx in [].constructor(18) track by $index">
+                <li class="item-{{lat.results[$index].id}}">
+                    <div class="latest-box">
+                        <!--img-------->
+                        <div class="latest-b-img">
+                            <img src="http://image.tmdb.org/t/p/w500/{{lat.results[$index].poster_path}}" ng-click="callVideo(lat.results[$index].overview)">
+                        </div>
+                        <!--text---------->
+                        <div class="latest-b-text">
+                            <strong>{{lat.results[$index].title}} ({{lat.results[$index].release_date[0]}}{{lat.results[$index].release_date[1]}}{{lat.results[$index].release_date[2]}}{{lat.results[$index].release_date[3]}})</strong>
+                            <p>{{gen.genres[$index].name}}
+<!--                                {{lat.results[$index].genre_ids[0]}}-->
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </div>
+              </ul>
+        </section>
+
+        
+        <div class="movies-heading" style="color: white;">
+            <h2>Popular Movies</h2>
+        </div>
+        <!--movies---------------------------->
+        <section id="movies-list">
+              <div ng-repeat="userx in [].constructor(16) track by $index">
+                 <!--box-1------------------------>
+                <div class="movies-box">
+                    <!--img------------>
+                    <div class="movies-img">
+                        <div class="quality"><i class="fa fa-star blue-color" ></i>  <span style="color: white;">            {{res.results[$index].vote_average}}</span></div>
+                        <img src="http://image.tmdb.org/t/p/w500/{{res.results[$index].poster_path}}">
+                    </div>
+                    <!--text--------->
+                    <a href="">
+                        <h2>{{res.results[$index].title}} ({{res.results[$index].release_date[0]}}{{res.results[$index].release_date[1]}}{{res.results[$index].release_date[2]}}{{res.results[$index].release_date[3]}})</h2>
+                    </a>
+                </div>
+              </div>
+        </section> 
+        
+        
+        <!--btns--------------->
+        <div class="btns" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="btns">
+                <a ng-click="pageOne()" >First Page</a>
+                <a ng-click="prevFunc()">Previous</a>
+                <a ng-click="nextFunc()">Next</a>
+                <a ng-click="pageLast()">Last Page</a>
+            </div>
+        </div>
+        
+        
+        
+        <!--footer------------------>
+        <footer>
+            <p>UAS Pengenalan Teknologi Internet - Kelompok Python</p>
+            <p>Movie Website with TheMovieDB API using AngularJS Framework</p>
+        </footer>
+        </div></div>
+        <script>
+             $(document).ready(function() {
+                $('#autoWidth,#autoWidth2,#autoWidth3').lightSlider({
+                    autoWidth:true,
+                    loop:true,
+                    onSliderLoad: function() {
+                        $('#autoWidth,#autoWidth2,#autoWidth3').removeClass('cs-hidden');
+                    } 
+                });  
+              });
+        </script>
+        <script>
+            var app = angular.module("myApp",['ngResource']);
+            app.factory('Upcoming',function($resource){
+                return $resource('https://api.themoviedb.org/3/movie/upcoming?api_key=6a34ab1a3e4ec9553d0d608f3db57948&language=en-US');
+            });
+            app.factory('Playing',function($resource){
+                return $resource('https://api.themoviedb.org/3/movie/now_playing?api_key=6a34ab1a3e4ec9553d0d608f3db57948&language=en-US');
+            });
+            app.factory('Genre',function($resource){
+                return $resource('https://api.themoviedb.org/3/genre/movie/list?api_key=6a34ab1a3e4ec9553d0d608f3db57948&language=en-US');
+            });
+            app.factory('find',function($resource){
+                return $resource('https://api.themoviedb.org/3/search/movie?api_key=6a34ab1a3e4ec9553d0d608f3db57948&query=:query',{query:'@query'});
+            });
+            app.factory('UserRF',function($resource){
+                return $resource('https://api.themoviedb.org/3/movie/popular?api_key=6a34ab1a3e4ec9553d0d608f3db57948&language=en-US&page=:page',{page:'@page'});
+            });
+              app.factory('grabVideo',function($resource){
+                     return $resource('https://api.themoviedb.org/3/movie/:movie_id/videos?api_key=6a34ab1a3e4ec9553d0d608f3db57948',{movie_id:'@movie_id'});
+                 });
+             app.controller("myCtrl", function($scope, Upcoming, Playing, Genre, UserRF, find, grabVideo, $http){
+                 
+                 //for video
+                 $scope.callVideo = function(mov_id){
+                     alert(mov_id);
+                     $scope.viewEmbed = grabVideo.get({movie_id:mov_id});
+                 };                
+               $scope.up = Upcoming.get(); 
+               $scope.lat = Playing.get(); 
+               $scope.gen = Genre.get(); 
+               $scope.search = function(){ 
+                   var usrQuery = $scope.uid;
+                   $scope.srcRes = find.get({query:usrQuery});
+               }
+               var curr_page = 1;
+               $scope.res = UserRF.get({page:curr_page});
+               $scope.pageOne = function(){
+                   curr_page = 1;
+                   $scope.res = UserRF.get({page:curr_page});
+               }
+               $scope.prevFunc = function(){
+                   //console.log(curr_page);
+                   if(curr_page >= 2){
+                       curr_page -= 1;
+                       $scope.res = UserRF.get({page:curr_page});
+                   }
+               };
+               $scope.nextFunc = function(){
+                   //console.log(curr_page);
+                   if(curr_page <= 499){
+                       curr_page += 1;
+                       $scope.res = UserRF.get({page:curr_page});
+                   }
+               };
+              $scope.pageLast = function(){
+                   curr_page = 500;
+                   $scope.res = UserRF.get({page:curr_page});
+               };
+            $scope.IsVisible = false;
+            $scope.Show = function(){
+                $scope.IsVisible = true;
+            };
+            $scope.Hide = function(){
+                $scope.IsVisible = false;
+            }
+            });
+//            app.config(function($routeProvider,$locationProvider){
+//                $locationProvider.hashPrefix('');
+//                $routeProvider.when("/",{templateUrl:"index.html"})
+//                .when("/aboutus",{templateUrl:"aboutus.html"})
+//            });
+        </script>
+    </body>
+</html>

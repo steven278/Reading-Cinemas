@@ -1,0 +1,175 @@
+<!--doctype html-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>UAS Kelompok Python</title>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/lightslider.css"/>
+        <script src="js/JQuery3.3.1.js"></script>
+        <script src="js/lightslider.js"></script>
+        <link rel="shortcut icon" href="images/fav%20icon.png"/>
+        <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js" integrity="sha512-5zOAub3cIpqklnKmM05spv4xttemFDlbBrmRexWiP0aWV8dlayEGciapAjBQWA7lgQsxPY6ay0oIUVtY/pivXA==" crossorigin="anonymous"></script>
+        <style>
+            body{
+                font-family:poppins;
+            }
+        </style>	
+    </head>
+    
+    <body ng-app="myApp">
+        <div  ng-controller="myCtrl">
+        <nav>
+            <a href="#" class="logo">
+                <img src="images/logo.png"/>
+            </a>
+            <input type="checkbox" class="menu-btn" id="menu-btn"/>
+            <label class="menu-icon" for="menu-btn">
+                <span class="nav-icon"></span>
+            </label>
+            <ul class="menu">
+                <li><a href="index.html" ng-click="Hide()">Home</a></li>
+                <li><a href="movies.html" ng-click="Hide()">Movies</a></li>
+                <li><a href="aboutus.html" ng-click="Hide()">About Us</a></li>
+            </ul>
+            <div style="margin-top: 14px;">
+               <form ng-submit="search()">
+                   <div class="search">
+                        <input type="text" placeholder="Find Your Favourite Movies" ng-model="uid"/>
+                        <!--search-icon----------->
+                        <button class="fas fa-search" id="submit" value="Submit" ng-click="Show()" style="height: 40px; width: 40px; font-size: 20px; text-decoration: none; background-color: transparent; border: none;"></button>
+                   </div>
+               </form>
+            </div>
+        </nav>
+        
+        <div ng-show = "IsVisible">
+        <div class="movies-heading" style="color: white; margin-top: 100px;">
+            <h2>Search Result</h2>
+        </div>
+        <div class="container">
+            <div class="container" style="border-bottom: solid black 5px">
+        <section id="movies-list">
+              <div ng-repeat="userx in [].constructor(18) track by $index">
+
+                <div class="movies-box">
+
+                    <div class="movies-img">
+                        <div class="quality">{{srcRes.results[$index].vote_average}}</div>
+                        <img src="http://image.tmdb.org/t/p/w500/{{srcRes.results[$index].poster_path}}">
+                    </div>
+
+                    <a href="">
+                        <h2>{{srcRes.results[$index].title}}</h2>
+                    </a>
+                </div>
+              </div>
+        </section> 
+        </div>
+        </div>    
+        </div> 
+        
+        <div ng-hide = "IsVisible">
+        <h1 style="width: 100%; color: white; font-size: 2.5rem; margin-top: 85px; margin-bottom: 0; text-align: center;">About Us</h1>
+        <section id="movies-list">
+            <div class="movies-box">
+                <div class="movies-img" style="height: 350px;">
+                    <div class="quality">Paling Pintar</div>
+                    <img src="images/Gabrielsar.jpg">
+                </div>
+                <a href="https://www.instagram.com/gabriel_sar21/">
+                    Gabrielsar - 34292<br/><br/><span style="text-decoration: underline; color: dodgerblue;">gabrielsar@student.umn.ac.id</span>
+                    <img src="images/instagramButton.jpg" style="width: 140px; margin-top: 25px; margin-bottom: 10px;">
+                </a>
+             </div>
+             <div class="movies-box">
+                <div class="movies-img" style="height: 350px;">
+                    <div class="quality">Paling Cerdas</div>
+                    <img src="images/Michael.jpg">
+                </div>
+                <a href="https://www.instagram.com/krisna_mic/">
+                    Michael Krisna Cahyadi - 33738<br/><br/><span style="text-decoration: underline; color: dodgerblue;">michael.krisna@student.umn.ac.id</span>
+                    <img src="images/instagramButton.jpg" style="width: 140px; margin-top: 25px; margin-bottom: 10px;">
+                </a>
+              </div>
+              <div class="movies-box">
+                <div class="movies-img" style="height: 350px;">
+                    <div class="quality">Paling Jenius</div>
+                    <img src="images/Steven.jpg">
+                </div>
+                <a href="https://www.instagram.com/steven_lie9/">
+                    Steven Lie - 33747<br/><br/><span style="text-decoration: underline; color: dodgerblue;">steven.lie@student.umn.ac.id</span>
+                    <img src="images/instagramButton.jpg" style="width: 140px; margin-top: 25px; margin-bottom: 10px;">
+                </a>
+              </div>
+              <div class="movies-box">
+                <div class="movies-img" style="height: 350px;">
+                    <div class="quality">Paling Ilmuwan</div>
+                    <img src="images/Valentino.jpg">
+                </div>
+                <a href="https://www.instagram.com/contardo_valentino/">
+                    Valentino Oktawan - 33731<br/><br/><span style="text-decoration: underline; color: dodgerblue;">valentino.oktawan@student.umn.ac.id</span>
+                    <img src="images/instagramButton.jpg" style="width: 140px; margin-top: 25px; margin-bottom: 10px;">
+                </a>
+              </div>
+          </section>
+          </div>
+            
+          <footer style="margin-top: 6px;">
+              <p>UAS Pengenalan Teknologi Internet - Kelompok Python</p>
+              <p>Movie Website with TheMovieDB API using AngularJS Framework</p>
+          </footer>
+            
+          <script>
+            var app = angular.module("myApp",['ngResource']);
+            app.factory('find',function($resource){
+                return $resource('https://api.themoviedb.org/3/search/movie?api_key=6a34ab1a3e4ec9553d0d608f3db57948&query=:query',{query:'@query'});
+            });
+            app.factory('UserRF',function($resource){
+                return $resource('https://api.themoviedb.org/3/movie/popular?api_key=6a34ab1a3e4ec9553d0d608f3db57948&language=en-US&page=:page',{page:'@page'});
+            });
+             app.controller("myCtrl", function($scope, UserRF, find, $http){
+               $scope.search = function(){ 
+                   var usrQuery = $scope.uid;
+                   $scope.srcRes = find.get({query:usrQuery});
+               }
+               var curr_page = 1;
+               $scope.res = UserRF.get({page:curr_page});
+               $scope.pageOne = function(){
+                   curr_page = 1;
+                   $scope.res = UserRF.get({page:curr_page});
+               }
+               $scope.prevFunc = function(){
+                   //console.log(curr_page);
+                   if(curr_page >= 2){
+                       curr_page -= 1;
+                       $scope.res = UserRF.get({page:curr_page});
+                   }
+               };
+               $scope.nextFunc = function(){
+                   //console.log(curr_page);
+                   if(curr_page <= 499){
+                       curr_page += 1;
+                       $scope.res = UserRF.get({page:curr_page});
+                   }
+               };
+              $scope.pageLast = function(){
+                   curr_page = 500;
+                   $scope.res = UserRF.get({page:curr_page});
+               };
+            $scope.IsVisible = false;
+            $scope.Show = function(){
+                $scope.IsVisible = true;
+            };
+            $scope.Hide = function(){
+                $scope.IsVisible = false;
+            }
+            });
+          </script>
+        </div>
+    </body>
+</html>
